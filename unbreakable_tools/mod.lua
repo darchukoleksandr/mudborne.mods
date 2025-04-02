@@ -2,7 +2,7 @@
 return {
 
   load = function(mod_id)
-    print('Unbreakable tools loaded', mod_id)
+	tn.logger.log('Unbreakable tools loaded!', mod_id)
     return true
   end,
 
@@ -12,13 +12,12 @@ return {
     local equipped = game.g.player:call('equipped') 
 	
     -- first check the player is using an tool
-    if mtype == 'pressed' and equipped.props.item then
+    if mtype == 'pressed' and equipped.props and equipped.props.stats then
 	
 		-- check if tool has durability
-		local definition = game.g.dictionary[equipped.props.item];
-		if definition and definition.durability and definition.category == 'tools' then
+		if equipped.props.stats.hp and equipped.props.stats.mhp then
 			-- reset durability
-			equipped.props.stats.hp = definition.durability
+			equipped.props.stats.hp = equipped.props.stats.mhp
 		end
 	end
   end,
